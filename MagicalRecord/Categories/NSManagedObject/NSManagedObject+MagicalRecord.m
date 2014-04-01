@@ -219,12 +219,50 @@ static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
     return YES;
 }
 
-- (id) MR_inContext:(NSManagedObjectContext *)otherContext
+- (void) MR_obtainPermanentObjectID;
 {
-    NSError *error = nil;
-    NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:&error];
-    [MagicalRecord handleErrors:error];
-    
+    if ([[self objectID] isTemporaryID])
+    {
+        NSError *error = nil;
+		
+        BOOL success = [[self managedObjectContext] obtainPermanentIDsForObjects:[NSArray arrayWithObject:self] error:&error];
+        if (!success)
+        {
+			[MagicalRecord handleErrors:error];
+        }
+    }
+}
+
+- (id) MR_inContext:(NSManagedObjectContext *)otherContext;
+{
+    NSManagedObject *inContext = nil;
+    NSManagedObjectID *objectID = [self objectID];
+    if (otherContext == [self managedObjectContext])
+    {
+        inContext = self;
+    }
+    else
+    {
+		// obtain permanent ID if necessary, see https://github.com/magicalpanda/MagicalRecord/issues/312 or https://github.com/magicalpanda/MagicalRecord/pull/379
+		if ([objectID isTemporaryID])
+		{
+			[self MR_obtainPermanentObjectID];
+			objectID = [self objectID];
+		}
+		
+        inContext = [otherContext objectRegisteredForID:objectID];  //see if its already there
+        if (inContext == nil)
+        {
+            NSError *error = nil;
+            inContext = [otherContext existingObjectWithID:objectID error:&error];
+			
+            if (inContext == nil)
+            {
+                MRLog(@"Did not find object %@ in context '%@': %@", self, [otherContext MR_description], error);
+				NSAssert(NO, @"Did not find object %@ in context '%@': %@", self, [otherContext MR_description], error);
+            }
+        }
+    }
     return inContext;
 }
 

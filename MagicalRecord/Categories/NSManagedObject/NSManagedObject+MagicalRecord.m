@@ -259,7 +259,6 @@ static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
             if (inContext == nil)
             {
                 MRLog(@"Did not find object %@ in context '%@': %@", self, [otherContext MR_description], error);
-				NSAssert(NO, @"Did not find object %@ in context '%@': %@", self, [otherContext MR_description], error);
             }
         }
     }

@@ -50,7 +50,8 @@
 {
 	NSError *error = nil;
 	NSUInteger count = [context countForFetchRequest:[self MR_createFetchRequestInContext:context] error:&error];
-	[MagicalRecord handleErrors:error];
+    [context MR_handleError:error
+                  inContext:context];
 	
     return count;
 }
@@ -67,7 +68,8 @@
 	[request setPredicate:searchFilter];
 	
 	NSUInteger count = [context countForFetchRequest:request error:&error];
-	[MagicalRecord handleErrors:error];
+    [context MR_handleError:error
+                  inContext:context];
     
     return count;
 }

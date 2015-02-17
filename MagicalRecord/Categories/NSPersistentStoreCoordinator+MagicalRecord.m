@@ -58,7 +58,8 @@ NSString * const kMagicalRecordPSCDidCompleteiCloudSetupNotification = @"kMagica
 
     if (!pathWasCreated) 
     {
-        [MagicalRecord handleErrors:error];
+        [MagicalRecord handleError:error
+                         inContext:nil];
     }
 }
 
@@ -98,7 +99,8 @@ NSString * const kMagicalRecordPSCDidCompleteiCloudSetupNotification = @"kMagica
             }
         }
                 
-        [MagicalRecord handleErrors:error];
+        [MagicalRecord handleError:error
+                         inContext:nil];
     }
     return store;
 }
@@ -116,7 +118,8 @@ NSString * const kMagicalRecordPSCDidCompleteiCloudSetupNotification = @"kMagica
                                                           error:&error];
     if (!store)
     {
-        [MagicalRecord handleErrors:error];
+        [MagicalRecord handleError:error
+                         inContext:nil];
     }
     return store;
 }

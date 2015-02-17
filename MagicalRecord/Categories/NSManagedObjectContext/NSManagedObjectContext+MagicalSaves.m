@@ -71,7 +71,8 @@
         @finally
         {
             if (!saved) {
-                [MagicalRecord handleErrors:error];
+                [self MR_handleError:error
+                           inContext:self];
 
                 if (completion) {
                     dispatch_async(dispatch_get_main_queue(), ^{

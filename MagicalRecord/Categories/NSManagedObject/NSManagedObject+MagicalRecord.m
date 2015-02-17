@@ -34,7 +34,8 @@ static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
         
         if (results == nil) 
         {
-            [MagicalRecord handleErrors:error];
+            [context MR_handleError:error
+                          inContext:context];
         }
 
     }];
@@ -225,10 +226,12 @@ static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
     {
         NSError *error = nil;
 		
-        BOOL success = [[self managedObjectContext] obtainPermanentIDsForObjects:[NSArray arrayWithObject:self] error:&error];
+        NSManagedObjectContext *context = [self managedObjectContext];
+        BOOL success = [context obtainPermanentIDsForObjects:[NSArray arrayWithObject:self] error:&error];
         if (!success)
         {
-			[MagicalRecord handleErrors:error];
+			[context MR_handleError:error
+                          inContext:context];
         }
     }
 }

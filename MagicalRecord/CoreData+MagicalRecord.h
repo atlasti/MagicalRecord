@@ -31,6 +31,7 @@
     #import "NSManagedObjectContext+MagicalObserving.h"
     #import "NSManagedObjectContext+MagicalSaves.h"
     #import "NSManagedObjectContext+MagicalThreading.h"
+    #import "NSManagedObjectContext+MagicalErrorHandling.h"
     #import "NSPersistentStoreCoordinator+MagicalRecord.h"
     #import "NSManagedObjectModel+MagicalRecord.h"
     #import "NSPersistentStore+MagicalRecord.h"

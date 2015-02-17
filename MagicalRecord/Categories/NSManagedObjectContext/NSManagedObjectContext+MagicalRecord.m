@@ -214,7 +214,8 @@ static NSString * const kMagicalRecordNSManagedObjectContextWorkingName = @"kNSM
         BOOL success = [context obtainPermanentIDsForObjects:[insertedObjects allObjects] error:&error];
         if (!success)
         {
-            [MagicalRecord handleErrors:error];
+            [context MR_handleError:error
+                          inContext:context];
         }
     }
 }

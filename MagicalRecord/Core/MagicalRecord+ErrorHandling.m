@@ -9,19 +9,18 @@
 #import "MagicalRecord+ErrorHandling.h"
 
 
-static id errorHandlerTarget = nil;
-static SEL errorHandlerAction = nil;
+static MRErrorHandler errorHandler = nil;
 
 
 @implementation MagicalRecord (ErrorHandling)
 
 + (void) cleanUpErrorHanding;
 {
-    errorHandlerTarget = nil;
-    errorHandlerAction = nil;
+    errorHandler = nil;
 }
 
 + (void) defaultErrorHandler:(NSError *)error
+                   inContext:(NSManagedObjectContext *)context
 {
     NSDictionary *userInfo = [error userInfo];
     for (NSArray *detailedError in [userInfo allValues])
@@ -48,47 +47,42 @@ static SEL errorHandlerAction = nil;
     MRLog(@"Error Message: %@", [error localizedDescription]);
     MRLog(@"Error Domain: %@", [error domain]);
     MRLog(@"Recovery Suggestion: %@", [error localizedRecoverySuggestion]);
+    if (context)
+    {
+        MRLog(@"Occured In Context: %@", context);
+    }
 }
 
-+ (void) handleErrors:(NSError *)error
++ (void) handleError:(NSError *)error
+           inContext:(NSManagedObjectContext *)context
 {
 	if (error)
 	{
         // If a custom error handler is set, call that
-        if (errorHandlerTarget != nil && errorHandlerAction != nil) 
+        if (errorHandler != nil)
 		{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [errorHandlerTarget performSelector:errorHandlerAction withObject:error];
-#pragma clang diagnostic pop
+            errorHandler(context, error);
         }
 		else
 		{
 	        // Otherwise, fall back to the default error handling
-	        [self defaultErrorHandler:error];			
+	        [self defaultErrorHandler:error
+                            inContext:context];
 		}
     }
 }
 
-+ (id) errorHandlerTarget
+- (void) handleError:(NSError *)error
+           inContext:(NSManagedObjectContext *)context
 {
-    return errorHandlerTarget;
+    [[self class] handleError:error
+                    inContext:context];
 }
 
-+ (SEL) errorHandlerAction
++ (void) setErrorHandler:(MRErrorHandler)handler
 {
-    return errorHandlerAction;
+    errorHandler = handler;
 }
 
-+ (void) setErrorHandlerTarget:(id)target action:(SEL)action
-{
-    errorHandlerTarget = target;    /* Deliberately don't retain to avoid potential retain cycles */
-    errorHandlerAction = action;
-}
-
-- (void) handleErrors:(NSError *)error
-{
-	[[self class] handleErrors:error];
-}
 
 @end

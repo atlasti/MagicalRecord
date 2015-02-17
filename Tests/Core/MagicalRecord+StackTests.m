@@ -106,7 +106,8 @@
     [MagicalRecord setErrorHandlerTarget:self action:@selector(magicalRecordErrorHandlerTest:)];
     
     NSError *testError = [NSError errorWithDomain:@"MRTests" code:1000 userInfo:nil];
-    [MagicalRecord handleErrors:testError];
+    [MagicalRecord handleError:testError];
+    
 
     XCTAssertTrue(errorHandlerWasCalled_, @"Expected error handler to have been called");
 }

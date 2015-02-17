@@ -69,7 +69,8 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
 
     if (!pathWasCreated) 
     {
-        [MagicalRecord handleErrors:error];
+        [MagicalRecord handleError:error
+                         inContext:nil];
     }
 }
 
@@ -135,7 +136,8 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
                 }
             }
         }
-        [MagicalRecord handleErrors:error];
+        [MagicalRecord handleError:error
+                         inContext:nil];
     }
     return store;
 }
@@ -221,7 +223,8 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
                                                           error:&error];
     if (!store)
     {
-        [MagicalRecord handleErrors:error];
+        [MagicalRecord handleError:error
+                         inContext:nil];
     }
     return store;
 }

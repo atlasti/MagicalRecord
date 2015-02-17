@@ -8,6 +8,7 @@
 
 #import "NSManagedObjectContext+MagicalSaves.h"
 #import "NSManagedObjectContext+MagicalRecord.h"
+#import "NSManagedObjectContext+MagicalErrorHandling.h"
 #import "MagicalRecord+ErrorHandling.h"
 #import "MagicalRecordLogging.h"
 
@@ -87,7 +88,8 @@
         }
         @finally
         {
-            [MagicalRecord handleErrors:error];
+            [self MR_handleError:error
+                       inContext:self];
 
             if (saveResult && shouldSaveParentContexts && [self parentContext])
             {

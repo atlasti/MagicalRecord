@@ -7,14 +7,15 @@
 //
 
 #import <MagicalRecord/MagicalRecordInternal.h>
+#import <MagicalRecord/NSManagedObjectContext+MagicalErrorHandling.h>
 
 @interface MagicalRecord (ErrorHandling)
 
-+ (void) handleErrors:(NSError *)error;
-- (void) handleErrors:(NSError *)error;
++ (void) handleError:(NSError *)error
+           inContext:(NSManagedObjectContext *)context;
+- (void) handleError:(NSError *)error
+           inContext:(NSManagedObjectContext *)context;
 
-+ (void) setErrorHandlerTarget:(id)target action:(SEL)action;
-+ (SEL) errorHandlerAction;
-+ (id) errorHandlerTarget;
++ (void) setErrorHandler:(MRErrorHandler)handler;
 
 @end

@@ -6,6 +6,7 @@
 #import "NSManagedObject+MagicalRecord.h"
 #import "NSManagedObject+MagicalRequests.h"
 #import "NSManagedObjectContext+MagicalThreading.h"
+#import "NSManagedObjectContext+MagicalErrorHandling.h"
 #import "MagicalRecord+ErrorHandling.h"
 #import "MagicalRecordLogging.h"
 
@@ -55,7 +56,8 @@ static NSUInteger kMagicalRecordDefaultBatchSize = 20;
         
         if (results == nil) 
         {
-            [MagicalRecord handleErrors:error];
+            [context MR_handleError:error
+                          inContext:context];
         }
 
     }];
@@ -98,7 +100,9 @@ static NSUInteger kMagicalRecordDefaultBatchSize = 20;
 	BOOL success = [controller performFetch:&error];
 	if (!success)
 	{
-		[MagicalRecord handleErrors:error];
+        NSManagedObjectContext *context = [self managedObjectContext];
+        [context MR_handleError:error
+                      inContext:context];
 	}
 	return success;
 }
@@ -220,7 +224,8 @@ static NSUInteger kMagicalRecordDefaultBatchSize = 20;
     NSError *error = nil;
     NSManagedObject *inContext = [context existingObjectWithID:[self objectID] error:&error];
 
-    [MagicalRecord handleErrors:error];
+    [context MR_handleError:error
+                  inContext:context];
 
     [context deleteObject:inContext];
     
@@ -287,10 +292,12 @@ static NSUInteger kMagicalRecordDefaultBatchSize = 20;
     
     if ([[self objectID] isTemporaryID])
     {
-        BOOL success = [[self managedObjectContext] obtainPermanentIDsForObjects:@[self] error:&error];
+        NSManagedObjectContext *context = [self managedObjectContext];
+        BOOL success = [context obtainPermanentIDsForObjects:@[self] error:&error];
         if (!success)
         {
-            [MagicalRecord handleErrors:error];
+            [context MR_handleError:error
+                          inContext:context];
             return nil;
         }
     }
@@ -298,7 +305,8 @@ static NSUInteger kMagicalRecordDefaultBatchSize = 20;
     error = nil;
     
     NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:&error];
-    [MagicalRecord handleErrors:error];
+    [otherContext MR_handleError:error
+                       inContext:otherContext];
     
     return inContext;
 }

@@ -8,6 +8,7 @@
 #import "NSManagedObjectContext+MagicalRecord.h"
 #import "NSManagedObjectContext+MagicalObserving.h"
 #import "NSManagedObjectContext+MagicalThreading.h"
+#import "NSManagedObjectContext+MagicalErrorHandling.h"
 #import "NSPersistentStoreCoordinator+MagicalRecord.h"
 #import "MagicalRecord+ErrorHandling.h"
 #import "MagicalRecord+iCloud.h"
@@ -182,7 +183,8 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
         BOOL success = [context obtainPermanentIDsForObjects:[insertedObjects allObjects] error:&error];
         if (!success)
         {
-            [MagicalRecord handleErrors:error];
+            [context MR_handleError:error
+                          inContext:context];
         }
     }
 }

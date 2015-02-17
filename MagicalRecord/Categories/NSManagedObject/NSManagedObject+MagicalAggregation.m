@@ -8,6 +8,7 @@
 
 #import "NSManagedObject+MagicalAggregation.h"
 #import "NSEntityDescription+MagicalDataImport.h"
+#import "NSManagedObjectContext+MagicalErrorHandling.h"
 #import "NSManagedObjectContext+MagicalRecord.h"
 #import "NSManagedObjectContext+MagicalThreading.h"
 #import "NSManagedObject+MagicalRequests.h"
@@ -79,7 +80,8 @@
     }
 	
 	NSUInteger count = [context countForFetchRequest:request error:&error];
-	[MagicalRecord handleErrors:error];
+    [context MR_handleError:error
+                  inContext:context];
     
     return count;
 }

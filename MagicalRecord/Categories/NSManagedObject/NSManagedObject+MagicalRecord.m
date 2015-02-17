@@ -4,6 +4,7 @@
 //
 
 #import "CoreData+MagicalRecord.h"
+#import "NSManagedObjectContext+MagicalErrorHandling.h"
 
 static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
 

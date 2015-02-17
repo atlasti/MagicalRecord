@@ -16,12 +16,12 @@ static NSString * const kMagicalRecordNSManagedObjectContextErrorHandler = @"kNS
 {
     if (errorHandler)
     {
-        [[self userInfo] removeObjectForKey:kMagicalRecordNSManagedObjectContextErrorHandler];
+        [[self userInfo] setObject:[errorHandler copy]
+                            forKey:kMagicalRecordNSManagedObjectContextErrorHandler];
     }
     else
     {
-        [[self userInfo] setObject:[errorHandler copy]
-                            forKey:kMagicalRecordNSManagedObjectContextErrorHandler];
+        [[self userInfo] removeObjectForKey:kMagicalRecordNSManagedObjectContextErrorHandler];
     }
 }
 

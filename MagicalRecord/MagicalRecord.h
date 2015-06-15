@@ -29,6 +29,7 @@ FOUNDATION_EXPORT const unsigned char MagicalRecordVersionString[];
 #import <MagicalRecord/NSManagedObject+MagicalAggregation.h>
 #import <MagicalRecord/NSManagedObjectContext+MagicalRecord.h>
 #import <MagicalRecord/NSManagedObjectContext+MagicalChainSave.h>
+#import <MagicalRecord/NSManagedObjectContext+MagicalErrorHandling.h>
 #import <MagicalRecord/NSManagedObjectContext+MagicalObserving.h>
 #import <MagicalRecord/NSManagedObjectContext+MagicalSaves.h>
 #import <MagicalRecord/NSManagedObjectContext+MagicalThreading.h>

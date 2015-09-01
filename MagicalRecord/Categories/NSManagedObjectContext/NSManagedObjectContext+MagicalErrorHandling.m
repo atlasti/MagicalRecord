@@ -38,14 +38,17 @@ static NSString * const kMagicalRecordNSManagedObjectContextErrorHandler = @"kNS
     if (error)
     {
         MRErrorHandler errorHandler = self.MR_errorHandler;
+        NSManagedObjectContext *parentContext = self.parentContext;
         if (errorHandler)
         {
             errorHandler(context, error);
         }
-        else if (self.parentContext)
+        else if (parentContext)
         {
-            [self.parentContext MR_handleError:error
-                                     inContext:context];
+            [parentContext performBlockAndWait:^{
+                [parentContext MR_handleError:error
+                                    inContext:context];
+            }];
         }
         else
         {

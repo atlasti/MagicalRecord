@@ -20,3 +20,4 @@ profile
 DerivedData
 Carthage/Build
 ObjectiveC.gcno
+ObjectiveC.gcda

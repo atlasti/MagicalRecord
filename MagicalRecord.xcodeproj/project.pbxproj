@@ -390,7 +390,7 @@
 		90AA772518F79CCC00D49377 /* EntityWithoutEntityNameMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AA772418F79CCC00D49377 /* EntityWithoutEntityNameMethod.m */; };
 		90AA772618F79CCC00D49377 /* EntityWithoutEntityNameMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AA772418F79CCC00D49377 /* EntityWithoutEntityNameMethod.m */; };
 		90B05B861B02450900354056 /* MagicalRecordShorthandMethodAliases.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B05B851B02450900354056 /* MagicalRecordShorthandMethodAliases.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90B05B871B02450900354056 /* MagicalRecordShorthandMethodAliases.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B05B851B02450900354056 /* MagicalRecordShorthandMethodAliases.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90B05B871B02450900354056 /* MagicalRecordShorthandMethodAliases.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B05B851B02450900354056 /* MagicalRecordShorthandMethodAliases.h */; };
 		90B05B8B1B02452A00354056 /* MagicalRecord+ShorthandMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B05B891B02452A00354056 /* MagicalRecord+ShorthandMethods.h */; };
 		90B05B8C1B02452A00354056 /* MagicalRecord+ShorthandMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B05B891B02452A00354056 /* MagicalRecord+ShorthandMethods.h */; };
 		90B05B8E1B02452A00354056 /* MagicalRecord+ShorthandMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B05B8A1B02452A00354056 /* MagicalRecord+ShorthandMethods.m */; };
@@ -1259,7 +1259,6 @@
 				905D07801A63DEF40076B54E /* NSManagedObjectContext+MagicalChainSave.h in Headers */,
 				905D07781A63DEF40076B54E /* NSNumber+MagicalDataImport.h in Headers */,
 				905D078C1A63DEF40076B54E /* MagicalRecord+Options.h in Headers */,
-				90B05B871B02450900354056 /* MagicalRecordShorthandMethodAliases.h in Headers */,
 				D4C5589C1B2F119A003D18B9 /* NSManagedObjectContext+MagicalErrorHandling.h in Headers */,
 				905D07881A63DEF40076B54E /* MagicalRecordInternal.h in Headers */,
 				905D07761A63DEF40076B54E /* NSAttributeDescription+MagicalDataImport.h in Headers */,
@@ -1271,6 +1270,7 @@
 				905D07821A63DEF40076B54E /* NSManagedObjectContext+MagicalRecord.h in Headers */,
 				905D077B1A63DEF40076B54E /* NSManagedObject+MagicalAggregation.h in Headers */,
 				905D07911A63DEF40076B54E /* MagicalRecordDeprecationMacros.h in Headers */,
+				90B05B871B02450900354056 /* MagicalRecordShorthandMethodAliases.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

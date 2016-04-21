@@ -284,31 +284,33 @@ static NSUInteger kMagicalRecordDefaultBatchSize = 20;
 
 - (id) MR_inContext:(NSManagedObjectContext *)otherContext
 {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    if (otherContext == context) {
-        return self;
-    }
-    
     NSError *error = nil;
-    if ([[self objectID] isTemporaryID])
-    {
-        BOOL success = [context obtainPermanentIDsForObjects:@[self] error:&error];
-        if (!success)
-        {
-            [context MR_handleError:error
-                          inContext:context];
-            return nil;
-        }
-    }
-    
-    error = nil;
-    
-    NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:&error];
+    NSManagedObject *inContext = [self MR_inContext:otherContext error:&error];
     if (!inContext) {
         [otherContext MR_handleError:error
                            inContext:otherContext];
     }
     
+    return inContext;
+}
+
+- (id) MR_inContext:(NSManagedObjectContext *)otherContext error:(NSError **)error
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    if (otherContext == context) {
+        return self;
+    }
+    
+    if ([[self objectID] isTemporaryID])
+    {
+        BOOL success = [context obtainPermanentIDsForObjects:@[self] error:error];
+        if (!success)
+        {
+            return nil;
+        }
+    }
+    
+    NSManagedObject *inContext = [otherContext existingObjectWithID:[self objectID] error:error];
     return inContext;
 }
 

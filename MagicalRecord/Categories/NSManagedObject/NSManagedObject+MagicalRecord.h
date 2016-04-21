@@ -52,6 +52,7 @@
 + (NSArray *) MR_descendingSortDescriptors:(NSArray *)attributesToSortBy;
 
 - (instancetype) MR_inContext:(NSManagedObjectContext *)otherContext;
+- (instancetype) MR_inContext:(NSManagedObjectContext *)otherContext error:(NSError **)error;
 - (instancetype) MR_inThreadContext;
 
 @end

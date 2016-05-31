@@ -303,7 +303,10 @@ static NSUInteger kMagicalRecordDefaultBatchSize = 20;
     
     if ([[self objectID] isTemporaryID])
     {
-        BOOL success = [context obtainPermanentIDsForObjects:@[self] error:error];
+        __block BOOL success = NO;
+        [context performBlockAndWait:^{
+            success = [context obtainPermanentIDsForObjects:@[self] error:error];
+        }];
         if (!success)
         {
             return nil;
